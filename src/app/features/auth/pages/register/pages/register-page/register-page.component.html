@@ -1,0 +1,213 @@
+<auth-form-title [title]="'Create a new account'" [text]="'It is quick and easy.'" />
+
+<form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="grid gap-3">
+  <!-- full Name -->
+  <div>
+    @let fullName = registerForm.get('name');
+    <div class="relative">
+      <input
+        formControlName="name"
+        autocomplete="text"
+        type="text"
+        id="fullName"
+        class="text-heading rounded-base border-default-medium focus:border-brand peer block w-full cursor-pointer appearance-none border bg-slate-50 px-2.5 pt-4 pb-2 text-sm transition-colors duration-300 hover:border-blue-400 focus:cursor-text focus:bg-transparent focus:ring-0 focus:outline-none"
+        placeholder=" "
+        [class]="{
+          'border-green-700': fullName?.valid,
+          'border-red-700': fullName?.invalid && fullName?.touched,
+        }"
+      />
+      <label
+        for="fullName"
+        class="text-body peer-focus:text-fg-brand absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 transform cursor-pointer rounded-3xl bg-slate-50 px-2 text-sm capitalize duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 focus:cursor-text rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+        >full Name
+      </label>
+    </div>
+
+    <field-errors-input [control]="fullName" [arrOfErrors]="arrOfErrors.name"></field-errors-input>
+  </div>
+
+  <!-- user name -->
+  <div class="relative">
+    <input
+      formControlName="username"
+      type="text"
+      autocomplete="username"
+      id="userName"
+      class="text-heading rounded-base border-default-medium focus:border-brand peer block w-full cursor-pointer appearance-none border bg-slate-50 px-2.5 pt-4 pb-2.5 text-sm transition-colors duration-300 hover:border-blue-400 focus:cursor-text focus:bg-transparent focus:ring-0 focus:outline-none"
+      placeholder=" "
+    />
+    <label
+      for="userName"
+      class="text-body peer-focus:text-fg-brand absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 transform cursor-pointer rounded-3xl bg-slate-50 px-2 text-sm capitalize duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 focus:cursor-text rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+      >user name (optional)
+    </label>
+  </div>
+
+  <!-- email -->
+  <div>
+    <div class="relative">
+      @let email = registerForm.get('email');
+      <input
+        formControlName="email"
+        autocomplete="email"
+        type="email"
+        id="email"
+        class="text-heading rounded-base border-default-medium focus:border-brand peer block w-full cursor-pointer appearance-none border bg-slate-50 px-2.5 pt-4 pb-2.5 text-sm transition-colors duration-300 hover:border-blue-400 focus:cursor-text focus:bg-transparent focus:ring-0 focus:outline-none"
+        placeholder=" "
+        [class]="{
+          'border-green-700': email?.valid,
+          'border-red-700': email?.invalid && email?.touched,
+        }"
+      />
+      <label
+        for="email"
+        class="text-body peer-focus:text-fg-brand absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 transform cursor-pointer rounded-3xl bg-slate-50 px-2 text-sm capitalize duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 focus:cursor-text rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+        >email
+      </label>
+    </div>
+
+    <field-errors-input [control]="email" [arrOfErrors]="arrOfErrors.email"></field-errors-input>
+  </div>
+
+  <!-- gender -->
+  <div>
+    @let gender = registerForm.get('gender');
+    <div class="relative">
+      <select
+        formControlName="gender"
+        id="gender"
+        class="text-heading rounded-base border-default-medium focus:border-brand peer block w-full cursor-pointer appearance-none border bg-slate-50 px-2.5 pt-4 pb-2.5 text-sm transition-colors duration-300 hover:border-blue-400 focus:cursor-text focus:bg-transparent focus:ring-0 focus:outline-none"
+        placeholder=" "
+        [class]="{
+          'border-green-700': gender?.valid,
+          'border-red-700': gender?.invalid && gender?.touched,
+        }"
+      >
+        <option selected disabled hidden value="">select gender</option>
+        <option value="male">male</option>
+        <option value="female">female</option>
+      </select>
+      <label
+        for="gender"
+        class="text-body peer-focus:text-fg-brand absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 transform cursor-pointer rounded-3xl bg-slate-50 px-2 text-sm capitalize duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 focus:cursor-text rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+        >select gender
+      </label>
+    </div>
+
+    <field-errors-input [control]="gender" [arrOfErrors]="arrOfErrors.gender"></field-errors-input>
+  </div>
+
+  <!-- dateOfBirth -->
+  <div>
+    @let dateOfBirth = registerForm.get('dateOfBirth');
+    <div class="relative">
+      <input
+        formControlName="dateOfBirth"
+        type="date"
+        id="dateOfBirth"
+        class="text-heading rounded-base border-default-medium focus:border-brand peer block w-full cursor-pointer appearance-none border bg-slate-50 px-2.5 pt-4 pb-2.5 text-sm transition-colors duration-300 hover:border-blue-400 focus:cursor-text focus:bg-transparent focus:ring-0 focus:outline-none"
+        placeholder=" "
+        [class]="{
+          'border-green-700': dateOfBirth?.valid,
+          'border-red-700': dateOfBirth?.invalid && dateOfBirth?.touched,
+        }"
+      />
+      <label
+        for="dateOfBirth"
+        class="text-body peer-focus:text-fg-brand absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 transform cursor-pointer rounded-3xl bg-slate-50 px-2 text-sm capitalize duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 focus:cursor-text rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+        >Date Of Birth
+      </label>
+    </div>
+
+    <field-errors-input
+      [control]="dateOfBirth"
+      [arrOfErrors]="arrOfErrors.dateOfBirth"
+    ></field-errors-input>
+  </div>
+
+  <!-- password -->
+  <div>
+    @let password = registerForm.get('password');
+    <div class="relative">
+      <input
+        #pass
+        formControlName="password"
+        autocomplete="new-password"
+        type="password"
+        id="password"
+        class="text-heading rounded-base border-default-medium focus:border-brand peer block w-full cursor-pointer appearance-none border bg-slate-50 px-2.5 pt-4 pb-2.5 text-sm transition-colors duration-300 hover:border-blue-400 focus:cursor-text focus:bg-transparent focus:ring-0 focus:outline-none"
+        placeholder=" "
+        [class]="{
+          'border-green-700': password?.valid,
+          'border-red-700': password?.invalid && password?.touched,
+        }"
+      />
+      <label
+        for="password"
+        class="text-body peer-focus:text-fg-brand absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 transform cursor-pointer rounded-3xl bg-slate-50 px-2 text-sm capitalize duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 focus:cursor-text rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+        >password
+      </label>
+
+      <span
+        [class]="pass.type === 'password' ? 'fa-eye-slash' : 'fa-eye'"
+        class="absolute inset-e-4 top-1/2 -translate-y-1/2 cursor-pointer"
+        (click)="showPassword(pass)"
+      >
+        <i class="fas"></i>
+      </span>
+    </div>
+
+    <field-errors-input
+      [control]="password"
+      [arrOfErrors]="arrOfErrors.password"
+    ></field-errors-input>
+  </div>
+
+  <!-- confirm password -->
+  <div>
+    @let rePassword = registerForm.get('rePassword');
+    <div class="relative">
+      <input
+        #repass
+        formControlName="rePassword"
+        autocomplete="new-password"
+        type="password"
+        id="rePassword"
+        class="text-heading rounded-base border-default-medium focus:border-brand peer block w-full cursor-pointer appearance-none border bg-slate-50 px-2.5 pt-4 pb-2.5 text-sm transition-colors duration-300 hover:border-blue-400 focus:cursor-text focus:bg-transparent focus:ring-0 focus:outline-none"
+        placeholder=" "
+        [class]="{
+          'border-green-700': rePassword?.valid,
+          'border-red-700': rePassword?.invalid && rePassword?.touched,
+        }"
+      />
+      <label
+        for="rePassword"
+        class="text-body peer-focus:text-fg-brand absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 transform cursor-pointer rounded-3xl bg-slate-50 px-2 text-sm capitalize duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 focus:cursor-text rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+        >confirm password
+      </label>
+      <span
+        [class]="repass.type === 'password' ? 'fa-eye-slash' : 'fa-eye'"
+        class="absolute inset-e-4 top-1/2 -translate-y-1/2 cursor-pointer"
+        (click)="showPassword(repass)"
+      >
+        <i class="fas"></i>
+      </span>
+    </div>
+
+    <field-errors-input [control]="rePassword" [arrOfErrors]="arrOfErrors.rePassword" />
+  </div>
+
+  <!-- submit button   -->
+  <button
+    class="w-full cursor-pointer rounded-2xl bg-blue-800 py-3 text-center text-sm font-bold text-white capitalize hover:bg-blue-900 disabled:cursor-not-allowed disabled:bg-gray-400"
+    type="submit"
+  >
+    create new acount
+    @if (loading) {
+      <i class="fas fa-spinner fa-spin ms-2"></i>
+    }
+  </button>
+
+  <auth-msg-error [msgError]="msgError" />
+</form>

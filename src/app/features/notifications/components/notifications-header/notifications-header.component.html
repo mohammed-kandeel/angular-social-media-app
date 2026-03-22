@@ -1,0 +1,17 @@
+<div class="flex flex-col items-start justify-between px-6 pt-6 md:flex-row">
+  <div>
+    <h1 class="text-xl font-bold text-gray-900">Notifications</h1>
+    <p class="mt-1 text-sm text-gray-600">
+      Realtime updates for likes, comments, shares, and follows.
+    </p>
+  </div>
+
+  <button
+    [disabled]="!isMarkAllActive"
+    (click)="markAll()"
+    class="mt-3 flex w-full flex-1 items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-200! md:mt-0 md:w-auto md:flex-none"
+  >
+    <i class="fa-solid fa-check-double text-xs"></i>
+    Mark all as read
+  </button>
+</div>

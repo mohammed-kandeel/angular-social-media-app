@@ -1,0 +1,148 @@
+<div class="flex justify-between">
+  <div class="flex items-center justify-center gap-2">
+    <div class="shrink-0 self-start">
+      <img
+        class="h-11 w-11 rounded-full border border-gray-200"
+        [src]="post.user.photo"
+        [alt]="post.user.name"
+      />
+    </div>
+
+    <div class="ms-2 min-w-0 flex-1">
+      <div>
+        <a
+          [routerLink]="['/profile', post.user._id]"
+          class="text-heading mb-1.5 cursor-pointer truncate font-bold underline-offset-3 transition hover:underline"
+        >
+          {{ post.user.name }}
+        </a>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 text-[12px] font-semibold text-gray-400">
+        <p>@{{ post.user.username }}</p>
+
+        <i class="fa-solid fa-circle text-[3px]"></i>
+
+        <p>{{ post.createdAt | date: 'mediumDate' }}</p>
+
+        <i class="fa-solid fa-circle text-[3px]"></i>
+
+        @if (user._id === post.user._id) {
+          <div
+            [class]="isLoadingPrivacy ? 'cursor-not-allowed! bg-gray-100 text-gray-400!' : ''"
+            class="w-fit cursor-pointer rounded-full px-2 text-[12px] text-gray-500 transition duration-200 hover:bg-gray-100"
+          >
+            @if (privacyInput.value === 'public') {
+              <i class="fa-solid fa-earth-americas"></i>
+            } @else if (privacyInput.value === 'following') {
+              <i class="fa-solid fa-users"></i>
+            } @else if (privacyInput.value === 'only_me') {
+              <i class="fa-solid fa-lock"></i>
+            }
+            <select
+              (change)="onChangPrivacy()"
+              [formControl]="privacyInput"
+              id="striates"
+              [class]="isLoadingPrivacy ? 'cursor-not-allowed! bg-gray-100 text-gray-400!' : ''"
+              class="placeholder:text-body active::border-none cursor-pointer border-none bg-transparent py-0 pe-6 text-[12px] text-gray-400 focus:ring-0"
+            >
+              <option selected value="public">Public</option>
+              <option value="following">Followers</option>
+              <option value="only_me">Only me</option>
+            </select>
+          </div>
+        } @else {
+          <div
+            class="bg-neutral-secondary-medium flex items-center rounded-full text-[12px] text-gray-400"
+          >
+            @if (post.privacy === 'public') {
+              <i class="fa-solid fa-earth-americas me-2 text-gray-500"></i>Public
+            } @else if (post.privacy === 'following') {
+              <i class="fa-solid fa-users me-2 text-gray-500"></i>Followers
+            } @else if (post.privacy === 'only_me') {
+              <i class="fa-solid fa-lock me-2 text-gray-500"></i> Only me
+            }
+          </div>
+        }
+
+        @if (isBookMark) {
+          <span class="rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-500"
+            ><i class="fa-regular fa-bookmark"></i> Saved</span
+          >
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="relative">
+    <button
+      #dropdownHoverBtn
+      (click)="onToggleDropdownButton()"
+      class="box-border inline-flex h-8 w-8 items-center justify-center rounded-full border border-transparent text-sm leading-5 font-medium text-gray-500 shadow-xs hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 focus:outline-none"
+      type="button"
+    >
+      <i class="fa-solid fa-ellipsis"></i>
+    </button>
+
+    <div
+      #dropdownCard
+      [class.hidden]="toggleDropdown"
+      class="bg-neutral-primary-medium border-default-medium rounded-base absolute top-9 -right-2 z-10 w-44 border shadow-lg"
+    >
+      <ul class="text-body p-2 text-sm font-medium" aria-labelledby="dropdownHoverButton">
+        <li>
+          <button
+            [class.cursor-not-allowed]="isLoadingBookMark"
+            [disabled]="isLoadingBookMark"
+            (click)="onToggleBookMark()"
+            class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2"
+          >
+            <i class="fa-regular fa-bookmark me-2"></i>
+            @if (isLoadingBookMark) {
+              saving...
+            } @else {
+              @if (isBookMark) {
+                Unsave Post
+              } @else {
+                Save Post
+              }
+            }
+          </button>
+        </li>
+
+        @if (user._id === post.user._id) {
+          @if (!isEditPost) {
+            <li>
+              <button
+                (click)="onEditPost()"
+                class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2"
+              >
+                <i class="fa-solid fa-pen me-2"></i> Edit Post
+              </button>
+            </li>
+          }
+          <li>
+            <button
+              #deletePostBtn
+              (click)="onDeletePostBtn()"
+              class="inline-flex w-full items-center rounded p-2 text-red-500 hover:bg-red-50"
+            >
+              <i class="fa-solid fa-trash me-2"></i> Delete Post
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</div>
+@if (isOpenDeletePoste) {
+  @defer (on idle) {
+    <app-delete-modal
+      [title]="'Delete this post?'"
+      [text]="'This post will be permanently removed from your profile and feed.'"
+      (cancel)="onCancelDelete()"
+      (confirm)="onConfirmDeletePost()"
+      [isOpen]="isOpenDeletePoste"
+    />
+  }
+}

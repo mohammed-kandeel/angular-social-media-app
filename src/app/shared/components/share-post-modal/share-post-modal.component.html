@@ -1,0 +1,95 @@
+<div
+  (click)="onBgModal($event)"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+>
+  <div #modal class="w-full max-w-lg overflow-hidden rounded-3xl bg-gray-100 duration-300">
+    <div class="flex items-center justify-between border-b border-gray-100 p-5">
+      <h2 class="text-lg font-bold">Share post</h2>
+      <button (click)="onCloseModal($event)" class="text-gray-400 hover:text-gray-600">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form (submit)="onsubmitPoste($event)">
+      <div class="p-5">
+        <textarea
+          [formControl]="textInput"
+          rows="3"
+          placeholder="Say something about this..."
+          class="mb-4 w-full resize-none rounded-xl border-gray-200 p-3 text-sm focus:border-blue-500 focus:ring-blue-500"
+          style="background-color: #fcfcfc"
+        ></textarea>
+
+        <div class="overflow-hidden rounded-2xl border border-gray-200 p-4">
+          <div class="mb-3 flex items-center gap-3">
+            <img
+              [src]="post.user.photo"
+              alt="post image"
+              class="h-8 w-8 rounded-full border border-gray-100"
+            />
+            <div class="flex flex-col">
+              <span class="text-xs font-bold">{{ post.user.name }}</span>
+              @if (post.user.username) {
+                <span class="text-2xs text-gray-400">@{{ post.user.username }}</span>
+              }
+            </div>
+          </div>
+          @if (post.body) {
+            <p class="mb-3 text-xs leading-relaxed whitespace-pre-wrap">
+              @for (item of post.body.split(' '); track $index) {
+                @if (item.startsWith('@')) {
+                  <span
+                    class="cursor-pointer text-blue-600 transition hover:underline hover:underline-offset-3"
+                    >{{ item }}</span
+                  >
+                } @else {
+                  {{ item }}
+                }
+              }
+            </p>
+          }
+          @if (post.image) {
+            <div class="overflow-hidden rounded-xl border border-gray-100">
+              <img [src]="post.image" alt="post content" class="h-48 w-full object-cover" />
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 bg-gray-50/50 p-5">
+        <button
+          [disabled]="isLoading"
+          type="button"
+          (click)="onCloseModal($event)"
+          class="rounded-xl border border-gray-300 px-6 py-2 text-sm font-bold text-gray-600 transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-300!"
+        >
+          Cancel
+        </button>
+
+        @if (isLoading) {
+          <button
+            disabled
+            class="cursor-not-allowed rounded-xl bg-blue-400 px-6 py-2 text-sm font-bold text-white shadow-md transition"
+          >
+            <i class="fa-solid fa-spinner text-2xs animate-spin"></i>
+            Updating...
+          </button>
+        } @else {
+          <button
+            type="submit"
+            class="rounded-xl bg-blue-600 px-6 py-2 text-sm font-bold text-white shadow-md transition hover:bg-blue-700"
+          >
+            Share now
+          </button>
+        }
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-alert-modal-component
+  [isOpen]="showAlert"
+  [type]="alertType"
+  [title]="alertTitle"
+  [message]="alertMessage"
+/>

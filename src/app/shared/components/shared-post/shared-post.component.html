@@ -1,0 +1,85 @@
+<div class="rounded-lg border border-gray-200 bg-gray-50 px-3 pt-3">
+  <div class="mb-2 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <img [src]="post.user.photo" [alt]="post.user.name" class="h-8 w-8 rounded-full" />
+      <div>
+        <a
+          [routerLink]="['/profile/', post.user._id]"
+          class="text-sm font-semibold transition hover:underline hover:underline-offset-2"
+          >{{ post.user.name }}</a
+        >
+        @if (post.user.username) {
+          <p class="text-xs text-gray-500">@{{ post.user.username }}</p>
+        }
+      </div>
+    </div>
+
+    <a
+      [routerLink]="['/posts', `${post._id}`]"
+      class="flex items-center gap-1 text-xs text-blue-600 hover:underline"
+    >
+      Original Post
+      <i class="fa-solid fa-arrow-up-right-from-square text-2xs"></i>
+    </a>
+  </div>
+
+  @if (post.body) {
+    <div>
+      <p class="mb-3 text-sm leading-relaxed wrap-break-word whitespace-pre-wrap text-gray-700">
+        @for (item of post.body.split(' '); track $index) {
+          @if (item.startsWith('@')) {
+            <span
+              class="cursor-pointer text-blue-600 transition hover:underline hover:underline-offset-3"
+              >{{ item }}</span
+            >
+          } @else {
+            {{ item }}
+          }
+        }
+        {{ ' ' }}
+      </p>
+    </div>
+  }
+
+  @if (post.image) {
+    <div
+      (click)="onViewImg()"
+      [class.rounded-b-lg]="!showFooter"
+      class="-mx-3 h-100 overflow-hidden rounded-b-lg"
+    >
+      <img
+        [src]="post.image"
+        alt="post image "
+        class="h-100 w-full cursor-pointer object-cover transition hover:opacity-95"
+      />
+    </div>
+  }
+
+  @if (showFooter) {
+    <div class="flex justify-between border-t border-gray-200 py-3 text-[14px] text-gray-600">
+      <div class="flex gap-3">
+        <p>
+          <i class="fa-regular fa-thumbs-up me-0.5 text-blue-500"></i>
+          {{ post.commentsCount }}
+          <span class="hidden md:inline">comment{{ post.commentsCount === 1 ? '' : 's' }}</span>
+        </p>
+        <p>
+          <i class="fa-regular fa-comment me-0.5 text-blue-500"></i>
+          {{ post.likesCount }}
+          <span class="hidden md:inline">like{{ post.likesCount === 1 ? '' : 's' }}</span>
+        </p>
+        <p>
+          <i class="fa-solid fa-retweet me-1.5 text-blue-500"></i>{{ post.sharesCount }}
+          <span class="hidden md:inline">share{{ post.sharesCount === 1 ? '' : 's' }}</span>
+        </p>
+      </div>
+      <p>{{ post.createdAt | date }}</p>
+    </div>
+  }
+</div>
+
+@if (isViewImg && post.image) {
+  @defer (when isViewImg) {
+    <app-view-img-post [img]="post.image" (closeImag)="onCloseImg($event)" />
+  }
+}

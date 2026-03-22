@@ -1,0 +1,163 @@
+<nav class="bg-neutral-primary border-default fixed inset-s-0 top-0 z-20 w-full border-b">
+  <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between p-4 pt-2">
+    <a routerLink="/feed" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <img
+        src="/assets/images/socia-media-logo.webp"
+        class="h-10 overflow-hidden rounded-full"
+        alt="socia Logo"
+      />
+      <span
+        class="self-center bg-linear-to-br from-indigo-500 via-purple-500 to-cyan-400 bg-clip-text text-3xl font-bold whitespace-nowrap text-transparent"
+        >Socia</span
+      >
+    </a>
+
+    <div
+      class="mt-2 flex items-center space-x-3 rounded-full border border-gray-200 px-3 py-2 md:order-2 md:space-x-0 rtl:space-x-reverse"
+    >
+      <button
+        #userMenuButton
+        type="button"
+        class="bg-neutral-primary focus:ring-neutral-tertiary flex cursor-pointer items-center rounded-full text-sm focus:ring-2 md:me-0 md:focus:ring-0"
+        id="user-menu-button"
+        aria-expanded="false"
+        data-dropdown-toggle="user-dropdown"
+        data-dropdown-placement="bottom"
+      >
+        <span class="sr-only">Open user menu</span>
+        <img class="h-8 w-8 rounded-full" [src]="userData.photo" [alt]="userData.name" />
+        <span class="ms-1 hidden font-bold text-gray-600 md:block">{{
+          userData.name.split(' ').slice(0, 2).join(' ')
+        }}</span>
+      </button>
+
+      <!-- Dropdown menu -->
+      <div
+        #dropdownMenu
+        class="bg-neutral-primary-medium border-default-medium rounded-base z-50 hidden w-44 border shadow-lg"
+        id="user-dropdown"
+      >
+        <div class="px-4 py-3 text-sm">
+          <span class="text-heading block font-medium capitalize md:hidden">{{
+            userData.name
+          }}</span>
+          <span class="text-body block truncate">{{ userData.email }}</span>
+        </div>
+
+        <ul
+          class="text-body border-default border-y p-2 text-sm font-medium"
+          aria-labelledby="user-menu-button"
+        >
+          <li>
+            <a
+              routerLink="/profile"
+              (click)="closeUserDownMenu()"
+              class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full cursor-pointer items-center rounded p-2 capitalize"
+            >
+              <i class="fa-regular fa-user me-1"></i>
+              profile
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/setting"
+              (click)="closeUserDownMenu()"
+              class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full cursor-pointer items-center rounded p-2 capitalize"
+            >
+              <i class="fa-solid fa-gear me-1"></i>
+              Settings
+            </a>
+          </li>
+        </ul>
+
+        <div class="border-default border-b px-4 py-3 text-sm">
+          <a
+            (click)="logout()"
+            class="inline-flex w-full cursor-pointer items-center rounded p-2 text-red-600 capitalize hover:bg-red-200 hover:text-red-700"
+            >Logout</a
+          >
+        </div>
+      </div>
+
+      <button
+        #navbarButton
+        data-collapse-toggle="navbar-user"
+        type="button"
+        class="text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:ring-neutral-tertiary inline-flex h-10 w-10 cursor-pointer items-center justify-center p-2 text-sm focus:ring-1 focus:outline-none md:hidden"
+        aria-controls="navbar-user"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="h-6 w-6"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="2"
+            d="M5 7h14M5 12h14M5 17h14"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div
+      class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
+      id="navbar-user"
+      #navbarMenu
+    >
+      <ul
+        class="mt-2 flex flex-col rounded-3xl border border-gray-200 px-3 py-2 font-medium md:flex-row md:space-x-5 md:rounded-full rtl:space-x-reverse"
+      >
+        <li>
+          <a
+            (click)="closeNavbarMenu()"
+            routerLink="/feed"
+            routerLinkActive="from-indigo-500! to-purple-700!"
+            class="block bg-linear-to-r from-gray-700 to-gray-700 bg-clip-text px-3 py-2 text-transparent transition duration-150 hover:from-gray-900 hover:to-gray-900 md:py-1"
+            aria-current="page"
+          >
+            <i class="fa-regular fa-house me-0.5"></i>
+            feed</a
+          >
+        </li>
+        <li>
+          <a
+            (click)="closeNavbarMenu()"
+            routerLink="/profile"
+            routerLinkActive="from-indigo-500! to-purple-700!"
+            class="block bg-linear-to-r from-gray-700 to-gray-700 bg-clip-text px-3 py-2 text-transparent transition duration-150 hover:from-gray-900 hover:to-gray-900 md:px-0 md:py-1"
+            aria-current="page"
+          >
+            <i class="fa-regular fa-user"></i>
+            profile</a
+          >
+        </li>
+        <li>
+          <a
+            (click)="closeNavbarMenu()"
+            routerLink="/notifications"
+            routerLinkActive="from-indigo-500! to-purple-700!"
+            class="relative block bg-linear-to-r from-gray-700 to-gray-700 bg-clip-text px-3 py-2 text-transparent transition duration-150 hover:from-gray-900 hover:to-gray-900 md:py-1"
+            aria-current="page"
+          >
+            @if (totalNotifications) {
+              <span
+                class="text-2xs absolute -top-1 left-5.5 rounded-full bg-red-500 px-1 font-extrabold text-white"
+                >{{ totalNotifications }}</span
+              >
+            }
+            <i class="fa-regular fa-comment text-[20px]"></i>
+            notifications
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

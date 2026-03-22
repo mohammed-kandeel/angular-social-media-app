@@ -1,0 +1,36 @@
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <!-- Modal -->
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-6 space-y-4">
+    <!-- Header -->
+    <div>
+      <h2 class="text-lg font-bold text-gray-900">{{ title }}</h2>
+      <p class="text-sm text-gray-400 mt-0.5">{{ text }}</p>
+    </div>
+
+    <!-- Select -->
+    <select
+      [formControl]="privacy"
+      class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer"
+    >
+      <option value="public">Public</option>
+      <option value="followers">Followers</option>
+      <option value="only_me">Only me</option>
+    </select>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-end gap-3 pt-1">
+      <button
+        (click)="cancelClick()"
+        class="px-5 py-2.5 text-sm font-semibold text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50 transition"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="saveClick()"
+        class="px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>

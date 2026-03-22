@@ -1,0 +1,52 @@
+<div class="group/avatar group relative shrink-0">
+  <div
+    class="relative overflow-hidden rounded-full bg-linear-to-br from-blue-100 to-white p-1 shadow-md"
+  >
+    <img
+      [src]="userData.photo"
+      class="h-24 w-24 rounded-full object-cover object-center"
+      [alt]="userData.name"
+    />
+    @if (isLoading) {
+      <div
+        class="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-2xl cursor-progress"
+      >
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      </div>
+    }
+  </div>
+
+  @if (!isLoading) {
+    <button
+      (click)="onViewImg()"
+      class="absolute bottom-1 left-1 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white opacity-0 shadow transition duration-500 group-hover/avatar:opacity-100 hover:bg-gray-50"
+    >
+      <i class="fa-solid fa-up-right-and-down-left-from-center text-2xs text-gray-500"></i>
+    </button>
+
+    @if (userData._id === user._id) {
+      <label
+        for="changPhotoProfil"
+        class="absolute right-1 bottom-1 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-blue-500 opacity-0 shadow transition duration-500 group-hover/avatar:opacity-100 hover:bg-blue-600"
+      >
+        <input type="file" id="changPhotoProfil" class="hidden" (change)="onFileSelected($event)" />
+        <i class="fa-solid fa-camera text-2xs text-white"></i>
+      </label>
+    }
+  }
+  @if (isViewImg) {
+    @defer (when isViewImg) {
+      <app-view-img-post [img]="userData.photo" (closeImag)="onCloseImg($event)" />
+    }
+  }
+
+  @if (isAdjustModalOpen) {
+    @defer (when isAdjustModalOpen) {
+      <app-adjust-profile-photo-modal
+        [file]="file!!"
+        (onSavePhoto)="onSavePhoto($event)"
+        (onCancel)="onCloseAdjustModal()"
+      />
+    }
+  }
+</div>

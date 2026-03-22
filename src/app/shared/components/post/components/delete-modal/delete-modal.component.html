@@ -1,0 +1,59 @@
+@if (isOpen) {
+  <div
+    (click)="onBgModal($event)"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+  >
+    <div #modal class="w-130 overflow-hidden rounded-2xl bg-white shadow-xl">
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-gray-400 px-6 py-4">
+        <h2 class="text-lg font-semibold text-gray-800">Confirm action</h2>
+
+        <button
+          [disabled]="isDeleting"
+          (click)="onCancel()"
+          class="aspect-square w-8 rounded-full text-xl text-gray-500 transition hover:bg-gray-200 hover:text-gray-700 disabled:cursor-not-allowed"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="flex gap-4 px-6 py-6">
+        <!-- Icon -->
+        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">⚠</div>
+
+        <!-- Text -->
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">{{ title }}</h3>
+
+          <p class="mt-1 text-sm text-gray-500">
+            {{ text }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex justify-end gap-3 border-t border-gray-400 px-6 py-4">
+        <button
+          [disabled]="isDeleting"
+          (click)="onCancel()"
+          class="rounded-lg border border-gray-300 px-4 py-2 text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed"
+        >
+          Cancel
+        </button>
+
+        <button
+          (click)="onConfirm()"
+          [disabled]="isDeleting"
+          class="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-red-400"
+        >
+          @if (isDeleting) {
+            Deleting post...
+          } @else {
+            Delete post
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}

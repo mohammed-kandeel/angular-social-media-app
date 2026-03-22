@@ -1,0 +1,21 @@
+<!-- Overlay -->
+<div
+  (click)="onCloseImg($event)"
+  class="fixed inset-0 z-50 flex animate-[fadeIn_.25s_ease] items-center justify-center bg-black/70 backdrop-blur-sm"
+>
+  <!-- Close Button -->
+  <button
+    class="absolute top-4.5 right-4.5 flex h-11 w-11 items-center justify-center rounded-full bg-black/10 text-white transition hover:bg-white/30"
+  >
+    <i class="fa-solid fa-xmark text-xl"></i>
+  </button>
+
+  <!-- Image -->
+  <div class="w-full max-w-6xl animate-[zoomIn_.25s_ease] px-6">
+    <img
+      [src]="img"
+      #image
+      class="max-h-[85vh] w-full rounded-xl bg-black/20 object-contain shadow-2xl"
+    />
+  </div>
+</div>

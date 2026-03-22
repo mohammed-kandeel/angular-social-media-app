@@ -1,0 +1,42 @@
+@layer components {
+  .show-field-error-animate {
+    overflow: hidden;
+    animation-name: show-field-error-animate;
+    animation-duration: 500ms;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+  .hide-field-error-animate {
+    display: none;
+    overflow: hidden;
+    animation-name: hide-field-error-animate;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes show-field-error-animate {
+    from {
+      height: 0;
+      max-height: 0;
+      display: none;
+    }
+    to {
+      height: 100%;
+      max-height: 500px;
+      display: block;
+    }
+  }
+  @keyframes hide-field-error-animate {
+    from {
+      display: block;
+      height: 100%;
+      max-height: 500px;
+    }
+    to {
+      height: 0;
+      max-height: 0;
+      display: none;
+    }
+  }
+}

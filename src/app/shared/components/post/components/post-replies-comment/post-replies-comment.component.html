@@ -1,0 +1,71 @@
+<!-- Replies -->
+<div class="relative me-10 ml-4 space-y-4 border-l border-gray-300 pt-4 pl-6 text-gray-950">
+  <div class="grid gap-4">
+    @for (comment of listReComments; track $index) {
+      <app-post-reply-comment [comment]="comment" (updateComments)="updateComments()" />
+    } @empty {
+      @if (!isLoading) {
+        <div class="-ms-5">
+          <p class="flex items-center gap-2 text-xs text-gray-500 hover:text-gray-700">
+            <span class="w-6 border-t border-gray-300"></span>
+            No replies yet.
+          </p>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- loading -->
+  @if (isLoading) {
+    <div class="-ms-5">
+      <p
+        class="flex cursor-not-allowed items-center gap-2 text-xs text-gray-500 hover:text-gray-700"
+      >
+        <span class="w-6 border-t border-gray-300"></span>
+        loading replies...
+      </p>
+    </div>
+  }
+
+  <!-- View More Replies -->
+  @if (isLoadMoreValid && !isLoading) {
+    <div class="-ms-5">
+      <button
+        (click)="getMoreComments()"
+        class="flex cursor-pointer items-center gap-2 text-xs text-gray-500 hover:text-gray-700"
+      >
+        <span class="w-6 border-t border-gray-300"></span>
+        View more replies
+      </button>
+    </div>
+  }
+
+  <!--  Hide replies Replies -->
+  @if (!isLoading) {
+    <div class="-ms-5">
+      <button
+        (click)="onCloseRepliesComments()"
+        class="flex cursor-pointer items-center gap-2 text-xs text-gray-500 hover:text-gray-700"
+      >
+        <span class="w-6 border-t border-gray-300"></span>
+        Hide replies
+      </button>
+    </div>
+  }
+</div>
+
+<!-- create comment -->
+<div class="relative ms-6 mt-4">
+  <span
+    class="absolute -top-4 -left-2 h-20 w-6 rounded-bl-xl border-b border-l border-gray-300"
+  ></span>
+  <p class="ms-6 mb-1 text-[12px] font-semibold text-gray-400">
+    Replying to {{ replayCommentName }}
+  </p>
+  <app-input-create-comment
+    [post_comment_ID]="postId"
+    [placeholder]="`Write a replay...`"
+    [isLoadingInput]="isLoadingInput"
+    (data)="postComment($event)"
+  />
+</div>

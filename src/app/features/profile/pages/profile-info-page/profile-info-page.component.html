@@ -1,0 +1,26 @@
+@if (isLoadingUserData) {
+  <div class="flex flex-col gap-4">
+    <app-skeleton-top-section />
+    <app-skeleton-shared-post />
+  </div>
+} @else {
+  <app-top-section
+    [userData]="userData"
+    [isFollowing]="isFollowing"
+    [isFollowingLoading]="isFollowingLoading"
+    (followingBtnAction)="onFollowingBtnAction()"
+  />
+
+  <div class="mt-4">
+    <app-profile-view-posts [posts]="posts" />
+  </div>
+
+  <app-infinite-scroll (onScroll)="onScroll()" />
+  @if (isLoadingOnScroll) {
+    <p class="text-gray-500 text-center mt-5">
+      loading <i class="fa-solid fa-spinner fa-spin ms-1"></i>
+    </p>
+  } @else {
+    <p class="text-gray-400 text-center mt-3 text-[12px]">You reached the end</p>
+  }
+}

@@ -1,59 +1,183 @@
-# SocialMedia
+# 🚀 Social Media Web Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.14.
+### ⚡ Built with Angular 20 | Modern Frontend Architecture
 
-## Development server
+<p align="center">
+  <img src="https://img.shields.io/badge/Angular-20-red?style=for-the-badge&logo=angular" />
+  <img src="https://img.shields.io/badge/TailwindCSS-4-blue?style=for-the-badge&logo=tailwindcss" />
+  <img src="https://img.shields.io/badge/RxJS-7-purple?style=for-the-badge&logo=reactivex" />
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" />
+</p>
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## ✨ Overview
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A full-featured **Social Media Web Application** built from scratch using modern Angular practices.
 
-## Code scaffolding
+This project pushed me to think like a real frontend engineer — handling real APIs, managing complex state, and delivering a smooth, scalable user experience.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## 👤 User System
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- 🔐 Signup & Signin with authentication guards
+- 🔄 Change password functionality
+- 🖼️ Upload profile & cover photos with image cropping & zoom controls
+- ✏️ Edit & manage personal profile
+- 🌍 Browse other users' profiles
+- 🤝 Follow / Unfollow users
+- 👥 Friends list & follow suggestions
+- 🔍 Live search filtering
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## 📝 Posts System
 
-To build the project run:
+- 🆕 Create posts with images & privacy settings
+- ✏️ Edit & delete posts inline
+- ♾️ Infinite scrolling (Intersection Observer)
+- 🔀 Multiple feed modes:
+  - Following
+  - My Posts
+  - Community
+- 📌 Save & unsave posts
+- 🔗 Share posts & copy link
+- ❤️ Like / Unlike posts
+- 👀 View likes & interactions
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 💬 Comments & Replies
 
-## Running unit tests
+- 🧱 Full CRUD operations
+- 👍 Like / Unlike comments
+- 🧵 Nested replies system
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## 🔔 Notifications System
 
-## Running end-to-end tests
+- 🔴 Real-time unread count badge
+- 📂 Filter (All / Unread)
+- ✅ Mark single or all as read
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## 🖼️ UI & UX Enhancements
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- 🔍 Full-screen image viewer
+- ⏱️ Custom TimeAgo pipe (auto updates with RxJS)
+- 💀 Skeleton loading screens
+- 🔔 Toast notifications
+- ⚠️ Confirmation modals
+- 🔄 Scroll position restoration
+- 🚫 Custom 404 page
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🧰 Tech Stack & Libraries
+
+### ⚡ Core Framework
+
+| Package | Purpose |
+|---|---|
+| `@angular/core` | App structure & components |
+| `@angular/common` | Directives & pipes |
+| `@angular/forms` | Reactive forms & validation |
+| `@angular/router` | Routing & guards |
+| `@angular/platform-browser` | Rendering engine |
+
+---
+
+### 🔁 State Management & Async
+
+| Package | Purpose |
+|---|---|
+| `rxjs` | Reactive programming & streams |
+
+---
+
+### 🎨 UI & Styling
+
+| Package | Purpose |
+|---|---|
+| `tailwindcss` | Utility-first styling |
+| `flowbite` | Prebuilt UI components |
+| `@fortawesome/fontawesome-free` | Icons |
+
+---
+
+### 😄 Enhancements
+
+| Package | Purpose |
+|---|---|
+| `@ctrl/ngx-emoji-mart` | Emoji picker |
+| `ngx-infinite-scroll` | Infinite scrolling |
+| `ngx-image-cropper` | Image cropping & zoom before upload |
+
+---
+
+### ⚙️ Tooling
+
+| Package | Purpose |
+|---|---|
+| `typescript` | Strong typing |
+| `postcss` + `autoprefixer` | CSS processing |
+| `prettier` | Code formatting |
+| `prettier-plugin-tailwindcss` | Auto-sort Tailwind classes |
+
+---
+
+### 🧪 Testing
+
+| Package | Purpose |
+|---|---|
+| `karma` + `jasmine` | Unit testing |
+
+---
+
+## 💡 Key Highlights
+
+✔ Built with **Standalone Components (Angular 20)**  
+✔ Features-based folder architecture (`core/`, `shared/`, `features/`)  
+✔ Clean & scalable codebase  
+✔ Real API integration with HTTP interceptors  
+✔ Reusable services & modular design  
+✔ Smooth UX with modern UI patterns  
+
+---
+
+## 🚧 Future Improvements
+
+- 💬 Real-time chat system
+- 🌙 Dark mode
+- ⚡ Performance optimization & lazy loading enhancements
+
+---
+
+## 📸 Preview
+
+> Screenshots / Demo will be added here 🔥
+
+---
+
+## 🤝 Contributing
+
+Feel free to fork, improve, and suggest features.
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a ⭐ on GitHub!
+
+---
+
+## 🧑‍💻 Author
+
+**Mohamed Kandeel**
+
+---
+
+<p align="center">Made with ❤️ using Angular</p>

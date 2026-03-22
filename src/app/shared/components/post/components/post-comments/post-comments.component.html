@@ -1,0 +1,26 @@
+<div class="grid gap-4">
+  @if (isEmpty) {
+    <app-post-empty-comments />
+  }
+
+  <!-- listOfComments -->
+  <div class="grid gap-8">
+    @for (comment of listComments; track comment._id) {
+      <app-post-comment [comment]="comment" (updateComments)="updateComments()" />
+    }
+  </div>
+
+  @if (isLoadMoreValid) {
+    <app-post-load-more-comments-btn (isLoadingMoreComments)="loadingMoreComments()" />
+  }
+
+  @if (isLoading) {
+    <app-post-loading-comment />
+  }
+  <app-input-create-comment
+    [post_comment_ID]="postId"
+    [placeholder]="`Comment as ${user.name}...`"
+    [isLoadingInput]="isLoadingInput"
+    (data)="postComment($event)"
+  />
+</div>

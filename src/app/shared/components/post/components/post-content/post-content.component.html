@@ -1,0 +1,83 @@
+<div class="px-6">
+  @if (isEditPost) {
+    <form class="mb-3" (submit)="onSubmitEdit($event)">
+      <textarea
+        [formControl]="textareaInput"
+        id="message"
+        rows="6"
+        class="bg-neutral-secondary-medium border-default-medium text-heading rounded-base placeholder:text-body mb-3 block w-full resize-none border p-3.5 text-sm shadow-xs focus:border focus:ring-blue-300"
+      ></textarea>
+
+      <field-errors-input
+        [control]="textareaInput"
+        [arrOfErrors]="[
+          { errorName: 'required', message: 'Minimum 1 character' },
+          { errorName: 'minlength', message: 'Minimum 1 character' },
+        ]"
+      />
+
+      <div class="flex justify-end gap-3">
+        <button
+          (click)="onCancelEdit()"
+          type="button"
+          class="box-border inline-flex cursor-pointer items-center justify-center rounded-full border border-gray-200 px-3 py-2 text-sm leading-5 font-medium text-gray-600 shadow-xs hover:bg-gray-100 focus:outline-none disabled:cursor-not-allowed"
+        >
+          cancel
+        </button>
+
+        <button
+          [disabled]="isSaving"
+          type="submit"
+          class="hover:bg-brand-strong focus:ring-brand-medium box-border inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-blue-500 px-3 py-2 text-sm leading-5 font-medium text-white shadow-xs focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-blue-300"
+        >
+          @if (isSaving) {
+            saving...
+          } @else {
+            save
+          }
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (post.body && !isEditPost) {
+    <div class="w-full px-2">
+      <p
+        class="text-dark-backdrop mb-3 text-[14px] leading-relaxed font-semibold wrap-break-word whitespace-pre-wrap"
+      >
+        @for (item of postContent.split(' '); track $index) {
+          @if (item.startsWith('@')) {
+            <span
+              class="cursor-pointer text-blue-600 transition hover:underline hover:underline-offset-3"
+              >{{ item }}</span
+            >
+          } @else {
+            {{ item }}
+          }
+        }
+        {{ ' ' }}
+      </p>
+    </div>
+  }
+</div>
+
+@if (post.image && !post.isShare) {
+  <div
+    (click)="onViewImg()"
+    class="relative z-1 -mx-6 block h-100 cursor-pointer overflow-hidden border border-gray-200 transition hover:opacity-95"
+  >
+    <img [src]="post.image" class="h-100 w-full object-cover" alt="post image" />
+  </div>
+} @else if (post.isShare && post.sharedPost) {
+  <div class="px-6">
+    @defer (when post.isShare) {
+      <app-shared-post [sharedPost]="post.sharedPost" />
+    }
+  </div>
+}
+
+@if (isViewImg && post.image) {
+  @defer (when isViewImg) {
+    <app-view-img-post [img]="post.image" (closeImag)="onCloseImg($event)" />
+  }
+}

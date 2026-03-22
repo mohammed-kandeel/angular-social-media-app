@@ -1,0 +1,77 @@
+<auth-form-title
+  [title]="'Log in to Socia Posts'"
+  [text]="'Log in and continue your social journey.'"
+/>
+
+<form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="grid gap-3">
+  <!-- email or username -->
+  <div>
+    <div class="relative">
+      @let login = loginForm.get('login');
+      <input
+        formControlName="login"
+        autocomplete="email"
+        type="email"
+        id="login"
+        class="text-heading rounded-base border-default-medium focus:border-brand peer block w-full cursor-pointer appearance-none border bg-slate-50 px-2.5 pt-4 pb-2.5 text-sm transition-colors duration-300 hover:border-blue-400 focus:cursor-text focus:bg-transparent focus:ring-0 focus:outline-none"
+        placeholder=" "
+        [class]="{
+          'border-green-700': login?.valid,
+          'border-red-700': login?.invalid && login?.touched,
+        }"
+      />
+      <label
+        for="login"
+        class="text-body peer-focus:text-fg-brand absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 transform cursor-pointer rounded-3xl bg-slate-50 px-2 text-sm capitalize duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 focus:cursor-text rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+        >email or userName
+      </label>
+    </div>
+    <field-errors-input [control]="login" [arrOfErrors]="arrOfErrors.login" />
+  </div>
+
+  <!-- password -->
+  <div>
+    @let password = loginForm.get('password');
+    <div class="relative">
+      <input
+        #pass
+        formControlName="password"
+        autocomplete="current-password"
+        type="password"
+        id="password"
+        class="text-heading rounded-base border-default-medium focus:border-brand peer block w-full cursor-pointer appearance-none border bg-slate-50 px-2.5 pt-4 pb-2.5 text-sm transition-colors duration-300 hover:border-blue-400 focus:cursor-text focus:bg-transparent focus:ring-0 focus:outline-none"
+        placeholder=" "
+        [class]="{
+          'border-green-700': password?.valid,
+          'border-red-700': password?.invalid && password?.touched,
+        }"
+      />
+      <label
+        for="password"
+        class="text-body peer-focus:text-fg-brand absolute inset-s-1 top-2 z-10 origin-left -translate-y-4 scale-75 transform cursor-pointer rounded-3xl bg-slate-50 px-2 text-sm capitalize duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 focus:cursor-text rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+        >password
+      </label>
+      <span
+        [class]="pass.type === 'password' ? 'fa-eye-slash' : 'fa-eye'"
+        class="absolute inset-e-4 top-1/2 -translate-y-1/2 cursor-pointer"
+        (click)="showPassword(pass)"
+      >
+        <i class="fas"></i>
+      </span>
+    </div>
+    <field-errors-input [control]="password" [arrOfErrors]="arrOfErrors.password" />
+  </div>
+
+  <!-- submit button    -->
+  <button
+    class="w-full cursor-pointer rounded-2xl bg-blue-800 py-3 text-center text-sm font-bold text-white capitalize hover:bg-blue-900 disabled:cursor-not-allowed disabled:bg-gray-400"
+    type="submit"
+  >
+    Log In
+    @if (loading) {
+      <i class="fas fa-spinner fa-spin ms-2"></i>
+    }
+  </button>
+
+  <auth-msg-error [msgError]="msgError" />
+</form>

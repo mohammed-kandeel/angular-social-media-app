@@ -1,0 +1,17 @@
+<div
+  [class.show-field-error-animate]="control?.invalid && control?.touched"
+  [class.hide-field-error-animate]="!(control?.invalid && control?.touched)"
+>
+  <div
+    class="text-fg-danger-strong rounded-base bg-danger-soft border-danger-subtle mt-1.5 mb-1 flex border px-4 py-3 text-sm"
+    role="alert"
+  >
+    <ul class="ms-3 list-outside list-disc space-y-1 ps-2.5 capitalize">
+      @for (error of arrOfErrors; track $index) {
+        @if (control?.hasError(error.errorName)) {
+          <li>{{ error.message }}</li>
+        }
+      }
+    </ul>
+  </div>
+</div>

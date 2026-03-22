@@ -1,0 +1,47 @@
+<div>
+  <div class="mb-2 flex items-center justify-center gap-2">
+    <div class="shrink-0">
+      <img class="h-10 w-10 rounded-full" [src]="friend.photo" [alt]="friend.name" />
+    </div>
+
+    <div class="ms-2 min-w-0 flex-1">
+      <a
+        [routerLink]="['/profile', friend._id]"
+        class="text-heading block cursor-pointer truncate font-bold underline-offset-3 transition hover:underline"
+      >
+        {{ friend.name }}
+      </a>
+      @if (friend.username) {
+        <p class="text-body truncate text-sm">{{ friend.username }}</p>
+      }
+    </div>
+    @if (!isLoading) {
+      <button
+        (click)="toggleFollowFriend()"
+        class="flex cursor-pointer items-center justify-center gap-1.5 rounded-full border border-gray-100 bg-blue-100 px-3 py-1 text-[12px] font-bold text-blue-500 transition hover:bg-blue-200 hover:text-blue-600"
+      >
+        <i class="fa-solid fa-user-plus text-2xs"></i>
+        follow
+      </button>
+    } @else {
+      <button
+        disabled
+        class="flex cursor-not-allowed items-center justify-center gap-1.5 rounded-full border border-gray-100 bg-blue-100 px-3 py-1 text-[12px] font-bold text-blue-500"
+      >
+        <i class="fa-solid fa-spinner text-2xs animate-spin"></i>
+        Updating...
+      </button>
+    }
+  </div>
+
+  <div class="ms-1 flex gap-2 text-[12px] font-semibold">
+    <span class="rounded-full bg-gray-100 px-2 py-1 text-gray-500"
+      >{{ friend.followersCount }} follows</span
+    >
+    @if (friend.mutualFollowersCount) {
+      <span class="rounded-full bg-blue-100 px-2 py-1 text-blue-500"
+        >{{ friend.mutualFollowersCount }} mutual</span
+      >
+    }
+  </div>
+</div>

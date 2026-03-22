@@ -1,0 +1,24 @@
+<section class="flex justify-center py-10">
+  <div class="w-full max-w-3xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow">
+    <!-- Header -->
+    <app-notifications-header (onMarkAll)="onMarkAll()" [isMarkAllActive]="isMarkAllActive" />
+
+    <!-- Tabs -->
+    <app-notifications-filter-btns
+      [isAllFilter]="isAllNotification"
+      [totalNotifications]="totalNotifications"
+      (onSelectedBtn)="onFilter($event)"
+    />
+
+    <!-- Notifications -->
+    <app-notifications-cards-container
+      [notifications]="filteredNotifications"
+      [isLoading]="isLoading"
+    />
+
+    <!-- Load More -->
+    @if (isLoadMore) {
+      <app-notifications-load-more-btn (onLoadMore)="onLoadMore()" />
+    }
+  </div>
+</section>

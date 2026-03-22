@@ -1,0 +1,18 @@
+<section
+  class="min-h-screen bg-[url('/assets/images/background/auth.png')] bg-cover bg-fixed bg-top-left"
+>
+  <div
+    class="container grid min-h-screen grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:px-20"
+  >
+    <div class="order-1 rounded-4xl bg-white p-5 shadow-sm shadow-teal-100 lg:order-2">
+      @if (!isLargeScreen) {
+        <div class="mb-5">
+          <app-title />
+        </div>
+      }
+      <auth-buttons />
+      <router-outlet />
+    </div>
+    <app-about-route class="order-2 lg:order-1" />
+  </div>
+</section>

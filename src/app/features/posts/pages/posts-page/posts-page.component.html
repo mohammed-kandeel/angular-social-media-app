@@ -1,0 +1,10 @@
+<div class="container max-w-200">
+  <app-location-back-btn />
+  <div class="mx-auto w-full">
+    @if (post) {
+      <app-post [post]="post" (onDelete)="onDelete()" />
+    } @else {
+      <app-skeletons-post />
+    }
+  </div>
+</div>

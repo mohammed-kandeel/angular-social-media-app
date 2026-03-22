@@ -1,0 +1,24 @@
+<app-location-back-btn />
+
+<section class="mb-4 rounded-3xl bg-white shadow-xl">
+  <!-- cover  -->
+  <app-profile-cover [userData]="userData" />
+
+  <div class="relative -mt-18 px-8 pb-6">
+    <div class="w-full space-y-5 overflow-hidden rounded-3xl bg-white/90 p-6">
+      <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+        <!-- Avatar -->
+        <app-profile-user-avatar [userData]="userData" />
+
+        <!-- Name_UserName -->
+        <app-profile-name-user-name [hostClass]="'flex-1 min-w-0'" [userData]="userData" />
+
+        <app-profile-follow-btn
+          [isFollowing]="isFollowing"
+          [isFollowingLoading]="isFollowingLoading"
+          (followingBtnAction)="onFollowingBtnAction()"
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+@for (post of postsList; track post._id) {
+  <app-post [post]="post" />
+} @empty {
+  <app-no-posts [text]="'Be the first one to publish.'" />
+}
+@if (isLoading && !postsList.length) {
+  <app-skeletons-post />
+  <app-skeletons-post />
+}
+@if (isLoading) {
+  <app-load-more-posts-spinner />
+} @else {
+  <p class="text-center text-[12px] font-semibold text-gray-400">You reached the end</p>
+}
+
+<app-infinite-scroll (onScroll)="onScroll()" />

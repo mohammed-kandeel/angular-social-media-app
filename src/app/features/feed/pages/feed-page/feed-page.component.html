@@ -1,0 +1,18 @@
+<div class="grid grid-cols-1 gap-5 md:grid-cols-12">
+  <div
+    class="row-start-1 md:sticky md:top-23 md:col-span-4 md:row-start-2 xl:col-span-2 xl:row-start-auto"
+  >
+    <app-feed-tabs />
+  </div>
+
+  <div class="row-span-3 md:col-span-8 xl:col-span-7">
+    <app-create-post />
+    <router-outlet />
+  </div>
+
+  <div
+    class="row-start-2 md:col-span-4 md:row-start-1 xl:sticky xl:top-23 xl:col-span-3 xl:row-start-auto"
+  >
+    <app-suggested-friends />
+  </div>
+</div>

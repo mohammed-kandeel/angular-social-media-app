@@ -1,0 +1,33 @@
+<section>
+  @if (isLargeScreen) {
+    <div class="mb-5">
+      <app-title></app-title>
+    </div>
+  }
+  <div class="rounded-4xl bg-white p-5 shadow-sm shadow-teal-100">
+    <h2 class="mb-2 text-[18px] font-extrabold text-blue-900 uppercase">
+      About the Socia Community
+    </h2>
+    <p class="mb-2 text-[1rem] font-bold text-indigo-950">
+      A modern social platform for sharing, connecting, and discovering
+    </p>
+    <p class="text-[14px] text-slate-600">
+      <span class="font-extrabold">Socia</span> is a modern social media platform designed to bring
+      people together and make sharing moments easier. Our goal is to create a space where users can
+      connect, share posts, discover new content, and interact with communities around the world. We
+      focus on providing a smooth and engaging experience that helps people express themselves, stay
+      connected, and discover what matters most to them.
+    </p>
+    <div class="mt-4 grid grid-cols-3 content-stretch gap-4">
+      @for (card of cards; track $index) {
+        <app-card
+          [cardClass]="cardClass"
+          [titleClass]="titleClass"
+          [contentClass]="contentClass"
+          [title]="card.title"
+          [content]="card.content"
+        />
+      }
+    </div>
+  </div>
+</section>

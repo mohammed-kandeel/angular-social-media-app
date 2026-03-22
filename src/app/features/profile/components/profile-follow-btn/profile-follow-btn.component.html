@@ -1,0 +1,31 @@
+@if (isFollowingLoading) {
+  <div
+    [class]="
+      isFollowing
+        ? 'border-gray-400 hover:bg-gray-200/70 text-gray-700'
+        : 'border-blue-400 hover:bg-blue-400 text-white bg-blue-500'
+    "
+    class="cursor-not-allowed rounded-2xl border px-3 py-3 text-[16px] font-bold shadow-2xl transition"
+  >
+    <i class="fa-solid fa-spinner fa-spin me-0.5"></i>
+    updating...
+  </div>
+} @else {
+  <button
+    (click)="onclick()"
+    [class]="
+      isFollowing
+        ? 'border-gray-400 hover:bg-gray-200/70 text-gray-700'
+        : 'border-blue-400 hover:bg-blue-400 text-white bg-blue-500'
+    "
+    class="cursor-pointer rounded-2xl border px-3 py-3 text-[16px] font-bold shadow-2xl transition"
+  >
+    @if (isFollowing) {
+      <i class="fa-solid fa-check me-0.5"></i>
+      following
+    } @else {
+      <i class="fa-solid fa-user-plus me-0.5"></i>
+      follow
+    }
+  </button>
+}

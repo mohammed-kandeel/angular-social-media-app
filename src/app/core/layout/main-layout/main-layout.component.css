@@ -1,0 +1,9 @@
+.bg-main-color {
+  background-image: linear-gradient(
+    to bottom right,
+    #a184ff4b,
+    oklch(99.33% 0.00951 197.659 / 0.6) 15%,
+    oklch(100% 0.00011 271.152) 90%,
+    #00d2f24e
+  );
+}

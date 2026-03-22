@@ -1,1 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+@import '@ctrl/ngx-emoji-mart/picker';
+
+@import 'tailwindcss';
+@import 'flowbite/src/themes/default';
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+@import './styles/typography';
+@import './styles/base.css';
+@import './styles/theme.css';
+
+@theme {
+  --color-main: #00298d;
+  --color-secondary: #f0f2f5;
+}
+@utility container {
+  @apply mx-auto px-6 max-w-7xl py-8;
+}
+@components {
+}
+
+html,
+body {
+  background-color: var(--color-secondary);
+  font-family: 'Cairo', sans-serif !important;
+}
+html,
+body,
+pre {
+  font-family: 'Cairo', sans-serif !important;
+}

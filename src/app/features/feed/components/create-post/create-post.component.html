@@ -1,0 +1,101 @@
+<section
+  class="bg-neutral-primary-soft border-default rounded-base mb-4 grid gap-4 border p-6 pb-4 shadow-xs"
+>
+  <div class="flex items-center justify-center gap-2">
+    <div class="shrink-0 self-start">
+      <img
+        class="h-11 w-11 rounded-full border border-gray-200"
+        [src]="user.photo"
+        [alt]="user.name"
+      />
+    </div>
+
+    <div class="ms-2 min-w-0 flex-1">
+      <a
+        routerLink="/profile"
+        class="text-heading mb-1.5 cursor-pointer truncate font-bold underline-offset-3 transition hover:underline"
+      >
+        {{ user.name }}
+      </a>
+
+      <div
+        class="bg-neutral-secondary-medium text-heading w-fit rounded-full border border-gray-200 px-2 text-[12px]"
+      >
+        @if (striates === 'public') {
+          <i class="fa-solid fa-earth-americas"></i>
+        } @else if (striates === 'followers') {
+          <i class="fa-solid fa-users"></i>
+        } @else if (striates === 'only_me') {
+          <i class="fa-solid fa-lock"></i>
+        }
+        <select
+          [formControl]="privacyInput"
+          id="striates"
+          class="placeholder:text-body active::border-none border-none bg-transparent py-0 pe-5.5 text-[12px] focus:ring-0"
+        >
+          <option selected value="public">Public</option>
+          <option value="following">Followers</option>
+          <option value="only_me">Only me</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <textarea
+    (input)="onTextInput()"
+    [formControl]="textareaInput"
+    id="message"
+    rows="6"
+    [placeholder]="'What' + 's on your mind,' + user.name + '?'"
+    class="bg-neutral-secondary-medium border-default-medium text-heading rounded-base placeholder:text-body mb-3 block w-full resize-none border p-3.5 text-sm shadow-xs focus:border focus:ring-blue-300"
+  ></textarea>
+
+  @if (image) {
+    <div class="rounded-base relative overflow-hidden">
+      <img [src]="image" class="h-60 w-full object-cover object-top" alt="" />
+      <button
+        title="remove image"
+        (click)="onRemoveImage()"
+        class="absolute inset-e-3 top-3 flex h-5 w-5 cursor-pointer items-center justify-center rounded-full bg-black/60 text-[12px] text-white transition hover:bg-black/70"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  }
+
+  <div class="flex justify-between border-t border-gray-300 pt-4">
+    <div class="flex gap-3">
+      <label
+        (change)="onGetImage($event)"
+        class="flex cursor-pointer items-center gap-1 rounded-full px-3 py-2 text-sm text-[14px] font-semibold text-gray-500 transition duration-200 hover:bg-gray-100"
+        for="file_input"
+      >
+        <i class="fa-solid fa-image text-[18px] text-green-500"></i>
+        <span class="hidden sm:inline">Photo/video</span>
+        <input class="hidden" id="file_input" type="file" />
+      </label>
+
+      <app-emoji-btn
+        [amojiClass]="'text-yellow-300'"
+        [text]="'Feeling/activity'"
+        [textClass]="'hidden sm:inline'"
+        (selectedAmoji)="addEmoji($event)"
+        [closeAmoji]="closeAmoji"
+      />
+    </div>
+
+    <button
+      (click)="onPost()"
+      [disabled]="!isValid || isLoading"
+      class="hover:bg-brand-strong focus:ring-brand-medium rounded-base box-border inline-flex cursor-pointer items-center justify-center border border-transparent bg-blue-500 px-3 py-2 text-sm leading-5 font-medium text-white shadow-xs focus:ring-2 focus:outline-none disabled:cursor-not-allowed! disabled:bg-blue-300"
+    >
+      @if (isLoading) {
+        Posting
+        <i class="fa-solid fa-spinner fa-spin ms-1"></i>
+      } @else {
+        Post
+        <i class="fa-regular fa-paper-plane ms-1"></i>
+      }
+    </button>
+  </div>
+</section>

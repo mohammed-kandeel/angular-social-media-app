@@ -1,0 +1,9 @@
+@for (card of statsCards; track card.title) {
+  <app-card
+    [cardClass]="'bg-white border border-gray-200 hover:shadow-md transition-shadow rounded-2xl px-5 py-4'"
+    [titleClass]="'text-2xs font-bold text-blue-500 uppercase tracking-widest mb-1'"
+    [contentClass]="'text-3xl font-black text-gray-900'"
+    [title]="card.title"
+    [content]="card.content"
+  />
+}

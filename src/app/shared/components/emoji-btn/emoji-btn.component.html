@@ -1,0 +1,27 @@
+<div class="relative">
+  <button
+    #toggleAmojiBtn
+    (click)="onToggleAmoji()"
+    class="flex cursor-pointer items-center gap-1 rounded-full px-3 py-2 text-sm text-[14px] font-semibold text-gray-500 transition duration-200 hover:bg-gray-100"
+  >
+    <i [class]="amojiClass" class="fa-regular fa-face-smile cursor-pointer"></i>
+    @if (text) {
+      <span [class]="textClass">{{ text }}</span>
+    }
+  </button>
+  <div [class.hidden]="toggleAmoji" class="absolute top-[110%] left-[-50%] z-10">
+    @defer (on interaction(toggleAmojiBtn)) {
+      <emoji-mart
+        class="modern-emoji-picker w-[320px] border-none"
+        [isNative]="true"
+        [darkMode]="false"
+        [showPreview]="false"
+        [hideObsolete]="true"
+        title=""
+        emoji=""
+        (emojiSelect)="addEmoji($event)"
+      >
+      </emoji-mart>
+    }
+  </div>
+</div>

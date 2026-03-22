@@ -1,0 +1,15 @@
+<div class="divide-y divide-gray-100">
+  @for (notification of notifications; track $index) {
+    <app-notifications-card [notification]="notification" />
+  } @empty {
+    <div class="cursor-default px-6 py-7 text-center text-gray-600 transition">
+      No unread notifications yet.
+    </div>
+  }
+  @if (isLoading) {
+    <div class="bg-gray-100">
+      <app-notifications-skeleton-card />
+    </div>
+    <app-notifications-skeleton-card />
+  }
+</div>

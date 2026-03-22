@@ -1,0 +1,164 @@
+<!-- COMMENT -->
+<div class="relative flex gap-3 text-gray-950">
+  @if (isReplays) {
+    <span class="absolute top-10 left-4 h-full w-6 border-l border-gray-300 md:left-4"></span>
+  }
+
+  <img
+    [src]="comment.commentCreator.photo"
+    [alt]="comment.commentCreator.name"
+    class="h-7 w-7 rounded-full md:h-10 md:w-10"
+  />
+
+  <div class="flex-1">
+    <div class="relative w-fit min-w-45 rounded-2xl bg-gray-200/60 p-3 px-2 ps-4 pt-2">
+      <!-- three dots && name -->
+      <div class="relative mb-1 flex justify-between">
+        <div>
+          <h3 class="text-sm font-semibold">{{ comment.commentCreator.name }}</h3>
+          @if (comment.commentCreator.username) {
+            <p class="text-[12px] font-semibold text-gray-700">
+              @{{ comment.commentCreator.username }}
+            </p>
+          }
+        </div>
+
+        @if (comment.commentCreator._id === user._id) {
+          <button
+            #dropDownMenuBtn
+            (click)="openDropMenu()"
+            class="ml-auto text-gray-400 transition hover:text-gray-600"
+          >
+            <i class="fa-solid fa-ellipsis"></i>
+          </button>
+
+          <div
+            [class.hidden]="toggleDropMenu"
+            class="absolute top-6 right-3 z-10 mt-1 hidden w-32 rounded-lg border border-gray-200 bg-white group-hover:block"
+            id="user-dropdown"
+          >
+            <ul
+              class="text-body border-default p-2 text-sm font-medium"
+              aria-labelledby="user-menu-button"
+            >
+              <!-- (click)="closeUserDownMenu()" -->
+              <li>
+                <button
+                  (click)="onOpenEditComment()"
+                  class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full cursor-pointer items-center rounded p-2 capitalize"
+                >
+                  <i class="fa-solid fa-pen me-1"></i> edit
+                </button>
+              </li>
+              <li>
+                <button
+                  (click)="onDeleteComment()"
+                  class="inline-flex w-full cursor-pointer items-center rounded p-2 text-red-600 capitalize hover:bg-red-200 hover:text-red-700"
+                >
+                  <i class="fa-solid fa-trash me-1"></i> delete
+                </button>
+              </li>
+            </ul>
+          </div>
+        }
+      </div>
+
+      <!-- content -->
+      <div class="w-fit rounded-2xl px-2 py-2">
+        @if (isEditComment) {
+          @if (comment.commentCreator._id === user._id) {
+            <div class="relative flex flex-col gap-2.5 md:flex-row">
+              <input
+                (input)="onValidEdit()"
+                [formControl]="editInput"
+                type="text"
+                placeholder="Write a reply..."
+                class="max-w-100 flex-1 rounded-full bg-gray-100 px-4 py-2 text-sm focus:border-gray-800 focus:ring-1 focus:ring-gray-800 focus:outline-none"
+              />
+
+              <div class="self-end md:self-auto">
+                <button
+                  (click)="onEditComment()"
+                  [disabled]="isEditLoading || !isEditInputValid"
+                  [class.bg-blue-400]="isEditInputValid"
+                  class="me-2 self-center rounded-full border border-blue-200 bg-blue-500 px-4 py-1.5 text-[14px] font-bold text-white transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-400"
+                >
+                  @if (isEditLoading) {
+                    saving <i class="fa-solid fa-spinner fa-spin ms-1"></i>
+                  } @else {
+                    save
+                  }
+                </button>
+                <button
+                  (click)="onCancelComment()"
+                  [disabled]="isEditLoading"
+                  class="self-center rounded-full border border-gray-200 bg-gray-100 px-3 py-1.5 text-[14px] font-bold text-gray-600 transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-300"
+                >
+                  cancel
+                </button>
+              </div>
+            </div>
+          }
+        } @else {
+          <p
+            class="text-md font-semibold wrap-break-word break-all whitespace-pre-wrap text-gray-900"
+          >
+            {{ comment.content }}
+          </p>
+          @if (comment.image) {
+            <div (click)="onViewImg()" class="rounded-base relative mt-3 overflow-hidden">
+              <img
+                [src]="comment.image"
+                class="h-60 w-full object-cover object-top"
+                alt="comment image"
+              />
+            </div>
+          }
+        }
+      </div>
+
+      @if (isDeleteComment) {
+        <div class="absolute inset-0 flex items-center justify-center rounded-2xl bg-gray-100/70">
+          <p class="font-bold text-gray-600">deleting...</p>
+        </div>
+      }
+    </div>
+
+    <div class="ms-3 mt-1.5 flex gap-4 text-xs text-gray-500">
+      <button
+        (click)="toggleLike()"
+        [class.text-blue-500]="comment.likes.length"
+        [disabled]="isLike"
+        class="text-blue-500 hover:underline disabled:cursor-not-allowed"
+      >
+        @if (isLike) {
+          Like(<i class="fa-solid fa-spinner fa-spin"></i>)
+        } @else {
+          Like ({{ comment.likes.length }})
+        }
+      </button>
+      <button (click)="onReplays()" class="hover:underline">
+        Reply ({{ comment.repliesCount }})
+      </button>
+      <span>{{ comment.createdAt | date: 'mediumDate' }} </span>
+    </div>
+  </div>
+</div>
+
+@if (comment.image && isViewImg) {
+  @defer (when isViewImg) {
+    <app-view-img-post [img]="comment.image" (closeImag)="onCloseViewImg()" />
+  }
+}
+
+@if (isReplays) {
+  @defer (when isReplays) {
+    <app-post-replies-comment
+      [commentId]="comment._id"
+      [postId]="comment.post"
+      [replayCommentName]="comment.commentCreator.name"
+      (updataNumberReply)="onUpdataNumberReply($event)"
+      (closeRepliesComments)="onReplays()"
+    />
+  }
+}

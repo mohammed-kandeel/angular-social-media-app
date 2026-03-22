@@ -1,0 +1,28 @@
+<aside class="bg-neutral-primary-soft border-default rounded-base w-full border p-2 shadow-xs">
+  <ul class="grid grid-cols-2 gap-2 space-y-3 px-2 py-3 md:grid-cols-1">
+    @for (item of links; track $index) {
+      <li class="m-0">
+        <a
+          [routerLink]="item.router"
+          [routerLinkActive]="item.routerLinkActive"
+          class="md:rounded-base hover:bg-neutral-tertiary-medium group flex items-center rounded-full p-3 font-semibold capitalize"
+        >
+          <span
+            [routerLinkActive]="item.routerLinkActive2"
+            class="ms-3 flex-1 bg-linear-to-r from-gray-700 to-gray-700 bg-clip-text whitespace-nowrap text-transparent hover:from-gray-900 hover:to-gray-900"
+          >
+            @if (item.router === 'feed-posts') {
+              <i class="fa-regular fa-newspaper me-1"></i> feed
+            } @else if (item.router === 'my-posts') {
+              <i class="fa-solid fa-wand-magic-sparkles me-1"></i>My Posts
+            } @else if (item.router === 'community-posts') {
+              <i class="fa-solid fa-earth-americas me-1"></i>Community
+            } @else if (item.router === 'saved-posts') {
+              <i class="fa-regular fa-bookmark me-1"></i>Saved
+            }
+          </span>
+        </a>
+      </li>
+    }
+  </ul>
+</aside>

@@ -1,0 +1,5 @@
+@for (post of posts; track post._id) {
+  <app-shared-post [sharedPost2]="post" [showFooter]="true" />
+} @empty {
+  <app-no-posts />
+}

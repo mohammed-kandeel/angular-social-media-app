@@ -1,0 +1,33 @@
+<div class="flex items-stretch gap-2 border-b border-gray-100 px-6 py-3">
+  <button
+    (click)="onclickBtn(true)"
+    [class]="
+      isAllFilter
+        ? 'bg-blue-500 text-white'
+        : 'flex items-center gap-2 bg-gray-100 text-gray-600 transition hover:bg-gray-200'
+    "
+    class="inline-block grow rounded-full px-4 py-1.5 text-center text-sm font-semibold transition duration-150 md:grow-0"
+  >
+    All
+  </button>
+
+  <button
+    (click)="onclickBtn(false)"
+    [class]="
+      !isAllFilter
+        ? 'bg-blue-500 text-white'
+        : 'flex items-center gap-2 bg-gray-100 text-gray-600 transition hover:bg-gray-200'
+    "
+    class="flex grow items-center justify-center gap-1 rounded-full px-4 py-1.5 text-sm font-semibold transition duration-150 md:grow-0"
+  >
+    Unread
+    @if (totalNotifications) {
+      <span
+        [class]="!isAllFilter ? 'bg-gray-50/30 text-white' : 'bg-white text-blue-600'"
+        class="rounded-full px-2 py-0 text-xs font-bold shadow-sm transition duration-150"
+      >
+        {{ totalNotifications }}
+      </span>
+    }
+  </button>
+</div>

@@ -1,0 +1,30 @@
+<div class="mb-4 rounded-xl border border-gray-200 shadow-xs">
+  <section class="grid gap-4 rounded-xl bg-white pt-6 pb-4">
+    <div class="px-6">
+      <app-post-title
+        [post]="post"
+        [isEditPost]="isEditPost"
+        (editPost)="editPost($event)"
+        (deletePost)="onDeletePost()"
+      />
+    </div>
+    <div class="overflow-hidden">
+      <app-post-content [post]="post" [isEditPost]="isEditPost" (isEditDone)="editDone($event)" />
+    </div>
+    <div class="px-6">
+      <app-post-footer
+        [post]="post"
+        (isOpenComments)="onToggleComments($event)"
+        [commentsNumber]="post.commentsCount"
+      />
+    </div>
+  </section>
+
+  @if (toggleComments) {
+    @defer (when toggleComments) {
+      <div class="w-full rounded-b-xl border-t border-gray-200 bg-gray-100/70 p-6">
+        <app-post-comments [postId]="post._id" (commentsNumber)="updateCommentsNumber($event)" />
+      </div>
+    }
+  }
+</div>
