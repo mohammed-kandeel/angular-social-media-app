@@ -158,7 +158,7 @@ This project pushed me to think like a real frontend engineer — handling real 
 
 ## 📸 Preview
 
-> Screenshots / Demo will be added here 🔥
+> Screenshots / https://angular-social-media-app-dun.vercel.app/#/
 
 ---
 
